@@ -18,23 +18,35 @@ We have to define the Agent, which has many tools/nodes created by us.
 - **Control Plane**: CNS of the langgraph server | orchestrator | hidden for the developer | manager uses data plane
 - **Data Plane**: Data supporter of control plane | workforce used by control plane
 
+
 ## Terminology
 
-| Term                  | Description                                                      |
-|-----------------------|------------------------------------------------------------------|
-| App                   | One agent, one workflow, many tools                              |
-| Server                | Hosts many apps                                                  |
-| Agent                 | Component in App, one per App                                    |
-| Graph                 | Workflow representation of server, one graph-one agent           |
-| Remote Agent          | Remote agent in the server, enables agentic communication        |
-| Routing Decision      | Logic to pick next node (edge)                                   |
-| State                 | Outcome/data; node execution → state change → routing decision   |
-| Checkpoints           | Saved version of a graph state                                   |
-| Human-in-Loop         | Human intervention after checkpoints                             |
-| Node                  | Graph entity                                                     |
-| Tools                 | Type of node, deterministic outcome                             |
-| LLMNode               | Type of node, LLM outcome                                        |
-| ConditionalNode       | State inspection, decides which node to call next                |
-| Custom Function Node  | Similar to Tools, without tool function wrapper (you vs LLM)     |
-| Interruptions         | Special type edge, requires human-in-loop, saved as checkpoint   |
-| Streaming             | Realtime updates, long running processes, like callback          |
+| Term / Symbol                  | Description                                                                                              |
+|--------------------------------|----------------------------------------------------------------------------------------------------------|
+| App                            | One agent, one workflow, many tools                                                                      |
+| Server                         | Hosts many apps                                                                                          |
+| Agent                          | Component in an App (one per App)                                                                        |
+| Graph                          | Workflow representation of the server (one graph ↔ one agent)                                           |
+| Remote Agent                   | Remote agent running in the server                                                                       |
+| Routing Decision               | Logic that selects the next node (edge)                                                                  |
+| State                          | Data/outcome produced by node execution; drives routing decisions                                        |
+| Checkpoints                    | Saved snapshots of graph state for rollback or review                                                    |
+| Human-in-Loop                  | Points where human intervention is required (often tied to checkpoints)                                   |
+| Node                           | A computation unit inside the graph                                                                      |
+| Tools                          | Deterministic functional nodes that wrap external APIs or logic                                          |
+| LLMNode                        | Node implemented by an LLM (non-deterministic / generative)                                              |
+| ConditionalNode                | Node that inspects state and chooses which branch to take                                                |
+| Custom Function Node           | User-defined code-first node (similar to Tools)                                                          |
+| Interruptions                  | Special edges that pause execution and require human-in-loop                                             |
+| Streaming                      | Long-running nodes that emit realtime updates (callbacks / streams)                                      |
+| TavilySearchResults            | External search/retrieval component (do not rely solely on pre-trained models)                           |
+| `langchain/core/tools`         | Location to define and register custom tools                                                              |
+| `langchain/langgraph/prebuilt` | Prebuilt ToolNode implementations (tool-backed nodes without embedded LLMs)                              |
+| `MemorySaver`                  | Utility for persisting checkpoints and graph state                                                       |
+| `HumanMessage`                 | Wrapper for passing human-provided messages into LLMs                                                    |
+| `CreateReactAgent`             | Factory that composes tools and an LLM into a runnable agent                                             |
+| `StateGraph`                   | API for constructing and managing graphs and state transitions                                            |
+| `Reflection`                   | Helper for post-processing or inspecting execution results                                                |
+| `ToolCalling`                  | Pattern and utilities for LLM → tool invocation and result handling                                      |
+
+
