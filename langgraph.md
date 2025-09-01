@@ -26,12 +26,12 @@ We have to define the Agent, which has many tools/nodes created by us.
 | App                            | One agent, one workflow, many tools                                                                      |
 | Server                         | Hosts many apps                                                                                          |
 | Agent                          | Component in an App (one per App)                                                                        |
-| Graph                          | Workflow representation of the server (one graph ↔ one agent)                                           |
+| Graph                          | Workflow representation of the server (one graph ↔ one agent)                                            |
 | Remote Agent                   | Remote agent running in the server                                                                       |
 | Routing Decision               | Logic that selects the next node (edge)                                                                  |
 | State                          | Data/outcome produced by node execution; drives routing decisions                                        |
 | Checkpoints                    | Saved snapshots of graph state for rollback or review                                                    |
-| Human-in-Loop                  | Points where human intervention is required (often tied to checkpoints)                                   |
+| Human-in-Loop                  | Points where human intervention is required (often tied to checkpoints)                                  |
 | Node                           | A computation unit inside the graph                                                                      |
 | Tools                          | Deterministic functional nodes that wrap external APIs or logic                                          |
 | LLMNode                        | Node implemented by an LLM (non-deterministic / generative)                                              |
@@ -40,13 +40,13 @@ We have to define the Agent, which has many tools/nodes created by us.
 | Interruptions                  | Special edges that pause execution and require human-in-loop                                             |
 | Streaming                      | Long-running nodes that emit realtime updates (callbacks / streams)                                      |
 | TavilySearchResults            | External search/retrieval component (do not rely solely on pre-trained models)                           |
-| `langchain/core/tools`         | Location to define and register custom tools                                                              |
+| `langchain/core/tools`         | Location to define and register custom tools                                                             |
 | `langchain/langgraph/prebuilt` | Prebuilt ToolNode implementations (tool-backed nodes without embedded LLMs)                              |
 | `MemorySaver`                  | Utility for persisting checkpoints and graph state                                                       |
 | `HumanMessage`                 | Wrapper for passing human-provided messages into LLMs                                                    |
-| `CreateReactAgent`             | Factory that composes tools and an LLM into a runnable agent                                             |
-| `StateGraph`                   | API for constructing and managing graphs and state transitions                                            |
-| `Reflection`                   | Helper for post-processing or inspecting execution results                                                |
-| `ToolCalling`                  | Pattern and utilities for LLM → tool invocation and result handling                                      |
+| `CreateReactAgent`             | Agent factory, takes tool and LLM							                                            |
+| `StateGraph`                   | API for constructing and managing graphs and state transitions                                           |
+| `Reflection`                   | to iterate the results, avoid hallocinations					                                            |
+| `ToolCalling`                  | llm calling the tool 											                                        |
 
 
